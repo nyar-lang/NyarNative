@@ -1,0 +1,8 @@
+{
+    "name": "native-nyar",
+    "private": true,
+    "scripts": {
+        "build": "cargo build --release&& cargo fmt --all",
+        "test": "cargo build && cargo fmt --all"
+    }
+}
