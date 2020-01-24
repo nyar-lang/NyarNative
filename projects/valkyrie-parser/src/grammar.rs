@@ -106,6 +106,7 @@ fn parse_expr(pairs: Pairs<Rule>) -> AST {
                 lhs: Box::new(left),
                 rhs: Box::new(right),
                 operator: op.as_str().to_string(),
+                modifier: Annotation::None
             },
         },
     )
@@ -123,7 +124,7 @@ fn parse_term(pairs: Pairs<Rule>) -> AST {
             _ => unreachable!(),
         };
     }
-    return if prefix.len() + postfix.len() == 0 { base } else { AST::UnaryOperators { base: Box::new(base), prefix, postfix } };
+    return if prefix.len() + postfix.len() == 0 { base } else { AST::UnaryOperators { base: Box::new(base), prefix, postfix, modifier: Annotation::None } };
 }
 
 fn parse_node(pairs: Pairs<Rule>) -> AST {

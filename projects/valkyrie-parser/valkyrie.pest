@@ -98,17 +98,16 @@ function_module = {(namespace ~ Dot)? ~ (SYMBOL ~ Dot)*}
 /*====================================================================================================================*/
 expr = !{
     trinocular
-  | bracket_call
   | term ~ (Infix ~ term)*
 }
 term =  {Prefix* ~ node ~ Postfix*}
-node = {data| "(" ~ expr ~ ")"}
+node = {"(" ~ expr ~ ")"|bracket_call|data}
 condition  = {node|expr}
 expressions = {"("~expr~ (comma_or_semi? ~ expr)* ~comma_or_semi?~")"}
-bracket_call = {term ~ (slice|apply)+}
+bracket_call = {data ~ (slice|apply)+}
 trinocular = {
-    term ~ Question ~ expr ~ Colon ~ expr
-  | term ~ If ~ expr ~ Else ~ expr
+    term ~ Question ~ term ~ Colon ~ term
+  | term ~ If ~ term ~ Else ~ term
 }
 /*====================================================================================================================*/
 /// #E06C75

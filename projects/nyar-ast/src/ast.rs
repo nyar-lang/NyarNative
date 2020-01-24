@@ -19,12 +19,14 @@ pub enum AST {
         base: Box<AST>,
         prefix: Vec<String>,
         postfix: Vec<String>,
+        modifier: Annotation,
     },
     /// - `InfixOperators`
     InfixOperators {
         operator: String,
         lhs: Box<AST>,
         rhs: Box<AST>,
+        modifier: Annotation,
     },
     /// - `Number`: raw number represent
     NumberLiteral {
