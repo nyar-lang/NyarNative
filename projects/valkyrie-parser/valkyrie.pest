@@ -35,13 +35,13 @@ As   = @{"as"}
 controlFlow = _{if_statement|for_statement}
 block = !{"{" ~ statement+ ~ "}"}
 /*====================================================================================================================*/
-if_statement ={if_nested_else|if_nested|if_single_else|if_single}
-if_single = _{ If~condition~ block}
-if_nested = _{ If~ condition~ block ~ else_if_block+}
-if_single_else = _{ If~condition~ block ~ if_else_block}
-if_nested_else = _{ If~ condition~ block~ else_if_block+ ~ if_else_block}
-else_if_block = !{ Else ~ If ~condition~ block}
-if_else_block = _{ Else ~ block}
+if_statement = {if_nested_else|if_nested|if_single_else|if_single}
+if_single = _{If ~ condition ~ block}
+if_nested = _{If ~ condition ~ block ~ else_if_block+}
+if_single_else = _{If ~ condition ~ block ~ if_else_block}
+if_nested_else = _{If ~ condition ~ block ~ else_if_block+ ~ if_else_block}
+else_if_block = _{Else ~ If ~ condition ~ block}
+if_else_block = _{Else ~ block}
 //!#C678DD: If|Else
 If = @{"if"}
 Else = @{"else"}
@@ -102,7 +102,7 @@ expr = !{
 }
 term =  {Prefix* ~ node ~ Postfix*}
 node = {"(" ~ expr ~ ")"|bracket_call|data}
-condition  = {node|expr}
+condition  = _{"(" ~ expr ~ ")"|expr}
 expressions = {"("~expr~ (comma_or_semi? ~ expr)* ~comma_or_semi?~")"}
 bracket_call = {data ~ (slice|apply)+}
 trinocular = {
@@ -114,7 +114,7 @@ trinocular = {
 type_expr = !{ SYMBOL | apply|type_term ~ (Infix ~ type_term)*}
 type_term =  { Prefix* ~ type_node ~ Postfix* }
 type_node = _{ "(" ~ type_expr ~ ")" }
-type_hint = { Colon ~ type_expr}
+type_hint =  { Colon ~ type_expr}
 
 //!#C678DD: Type|To
 Type = @{"type"}
